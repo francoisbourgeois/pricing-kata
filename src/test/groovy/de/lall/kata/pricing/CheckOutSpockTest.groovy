@@ -5,7 +5,7 @@ import de.lall.kata.pricing.pricingrules.MultipleItemRule
 import spock.lang.Specification
 import spock.lang.Unroll
 
-class CheckOutSpec extends Specification {
+class CheckOutSpockTest extends Specification {
     CheckOut checkOut = new CheckOut([
             new MultipleItemRule(new Item("A"), 3, 100),
             new MultipleItemRule(new Item("B"), 2, 80),

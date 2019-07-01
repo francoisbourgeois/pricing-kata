@@ -12,7 +12,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 
-public class TestPrice {
+public class CheckOutJUnitTest {
     private List<PricingRule> rules;
 
     @Before
