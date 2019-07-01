@@ -1,0 +1,1 @@
+# idealo-pricing-kata
