@@ -3,14 +3,15 @@ package de.lall.kata.pricing;
 import de.lall.kata.pricing.pricingrules.PricingRule;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class CheckOut {
-    private List<PricingRule> rules;
+    private final List<PricingRule> rules;
     private List<Item> items;
 
     public CheckOut(List<PricingRule> rules) {
-        this.rules = rules;
+        this.rules = Collections.unmodifiableList(rules);
         items = new ArrayList<>();
     }
 
