@@ -1,5 +1,6 @@
 package de.lall.kata.pricing
 
+import de.lall.kata.pricing.pricingrules.EnforceRuleSetCompletenessRule
 import de.lall.kata.pricing.pricingrules.FixedPriceRule
 import de.lall.kata.pricing.pricingrules.MultipleItemRule
 import spock.lang.Specification
@@ -12,7 +13,8 @@ class CheckOutSpockTest extends Specification {
             new FixedPriceRule(new Item("A"), 40),
             new FixedPriceRule(new Item("B"), 50),
             new FixedPriceRule(new Item("C"), 25),
-            new FixedPriceRule(new Item("D"), 20)
+            new FixedPriceRule(new Item("D"), 20),
+            new EnforceRuleSetCompletenessRule()
     ])
 
     @Unroll
@@ -40,4 +42,34 @@ class CheckOutSpockTest extends Specification {
         200            | "DABABA"
     }
 
+    void "calculate correct intermediate results, if items are added incrementally"() {
+        when: checkOut.scan(new Item("A"))
+        then: checkOut.total() == 40
+
+        when: checkOut.scan(new Item("B"))
+        then: checkOut.total() == 90
+
+        when: checkOut.scan(new Item("A"))
+        then: checkOut.total() == 130
+
+        when: checkOut.scan(new Item("A"))
+        then: checkOut.total() == 150
+
+        when: checkOut.scan(new Item("B"))
+        then: checkOut.total() == 180
+    }
+
+    void "throws an exception, if there are items unmatched by any rule"() {
+        given:
+        checkOut.scan(new Item("A"))
+        checkOut.scan(new Item("E"))
+        checkOut.scan(new Item("F"))
+
+        when:
+        checkOut.total()
+
+        then:
+        def e = thrown(IllegalStateException)
+        e.message == "Found 2 unhandled items"
+    }
 }
