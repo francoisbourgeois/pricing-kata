@@ -1,6 +1,6 @@
-# idealo-pricing-kata
+# pricing-kata
 
-This project is a solution for the coding kata "Back to the Checkout" (http://codekata.com/kata/kata09-back-to-the-checkout/)
+This project is a solution for a coding kata
 
 # Basic idea of the solution
 - Pricing rules are the center of the calculation
